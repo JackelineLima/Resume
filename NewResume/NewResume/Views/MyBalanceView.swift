@@ -8,6 +8,9 @@ import UIKit
 
 final class MyBalanceView: UIView {
     
+    private var isHiddenBalance = true
+    
+    
     private lazy var uiStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +32,7 @@ final class MyBalanceView: UIView {
         label.text = "R$ 4.000,00"
         label.font = .systemFont(ofSize: 22, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.sizeToFit()
         return label
     }()
     
@@ -46,11 +50,11 @@ final class MyBalanceView: UIView {
         return view
     }()
     
-    private lazy var eyeButton: UIImageView = {
-        let button = UIImageView()
-//        button.addTarget(self, action: #selector(eyeButtonTapped), for: .touchUpInside)
+    private lazy var eyeButton: UIButton = {
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.image = UIImage(named: "icon-security-eye-open")
+        button.addTarget(self, action: #selector(eyeButtonTapped), for: .touchUpInside)
+        button.setImage(UIImage(named: "icon_security_eye_open"), for: .normal)
         return button
     }()
     
@@ -59,17 +63,31 @@ final class MyBalanceView: UIView {
         label.text = "R$ 5.000,00"
         label.font = .systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.sizeToFit()
         return label
     }()
-
+    
+    lazy var grayView = GrayView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
         setupLayout()
+        
+        setupBackgroundHiddenBalance(views: [balanceLabel, withdrawValueLabel])
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupBackgroundHiddenBalance(views: [UIView]) {
+        views.forEach { view in
+            grayView = GrayView(frame: view.bounds)
+            grayView.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1.0)
+            grayView.alpha = 0
+            view.addSubview(grayView)
+        }
     }
     
     private func setupLayout() {
@@ -80,7 +98,6 @@ final class MyBalanceView: UIView {
     }
 
     private func setupSubviews() {
-        // Adicionando labels e botão de olho aqui
         addSubview(titleLabel)
         addSubview(balanceLabel)
         addSubview(eyeButton)
@@ -90,7 +107,6 @@ final class MyBalanceView: UIView {
         uiStackView.addArrangedSubview(withdrawIcon)
         addSubview(withdrawValueLabel)
         
-        // Define as propriedades dos labels e do botão aqui
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -103,9 +119,6 @@ final class MyBalanceView: UIView {
             eyeButton.widthAnchor.constraint(equalToConstant: 24),
             eyeButton.heightAnchor.constraint(equalToConstant: 24),
             
-//            withdrawIcon.widthAnchor.constraint(equalToConstant: 18),
-//            withdrawIcon.heightAnchor.constraint(equalToConstant: 14),
-            
             uiStackView.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 12),
             uiStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             uiStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
@@ -117,6 +130,61 @@ final class MyBalanceView: UIView {
     }
 
     @objc private func eyeButtonTapped() {
+        var imageBalanceButton = UIImage(named: "icon_security_eye_open")
+        
+        isHiddenBalance = !isHiddenBalance
+        if isHiddenBalance == false {
+            imageBalanceButton = UIImage(named: "icon_security_eye_close")
+        }
+        eyeButton.setImage(imageBalanceButton, for: .normal)
+        print(isHiddenBalance)
+        showBalance(isHidden: isHiddenBalance, views: [balanceLabel, withdrawValueLabel])
+    }
     
+    public func showBalance(isHidden: Bool, views: [UIView]) {
+        views.forEach { view in
+            if isHidden {
+                UIView.animate(withDuration: 0.2) {
+                    view.subviews.forEach { grayView in
+                        if grayView is GrayView {
+                            grayView.alpha = 0
+                        }
+                    }
+                }
+            } else {
+                UIView.animate(withDuration: 0.2) {
+                    view.subviews.forEach { grayView in
+                        if grayView is GrayView {
+                            grayView.alpha = 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func setupBackgroundHidden(views: [UIView]) {
+        views.forEach { view in
+            grayView = GrayView(frame: view.bounds)
+            grayView.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1.0)
+            grayView.alpha = 0
+        }
+    }
+}
+
+final class GrayView: UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupLayout()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    
+    private func setupLayout() {
+        backgroundColor = .red
     }
 }

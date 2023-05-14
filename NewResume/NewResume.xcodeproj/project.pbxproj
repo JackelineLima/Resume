@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A75BF2222A119576000C6E4C /* MeusSaldosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75BF2212A119576000C6E4C /* MeusSaldosView.swift */; };
 		CB7C52142A110CBD00983B82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C52132A110CBD00983B82 /* AppDelegate.swift */; };
 		CB7C52162A110CBD00983B82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C52152A110CBD00983B82 /* SceneDelegate.swift */; };
 		CB7C52182A110CBD00983B82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C52172A110CBD00983B82 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A75BF2212A119576000C6E4C /* MeusSaldosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeusSaldosView.swift; sourceTree = "<group>"; };
 		CB7C52102A110CBD00983B82 /* NewResume.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewResume.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB7C52132A110CBD00983B82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB7C52152A110CBD00983B82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				CB7C522B2A110CD500983B82 /* HeaderResumoView.swift */,
 				CB7C522C2A110CD500983B82 /* ResumeView.swift */,
 				CB7C522D2A110CD500983B82 /* SimpleScrollView.swift */,
+				A75BF2212A119576000C6E4C /* MeusSaldosView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 				CB7C522E2A110CD600983B82 /* AgencyAccountView.swift in Sources */,
 				CB7C52332A110CD600983B82 /* SimpleScrollView.swift in Sources */,
 				CB7C52142A110CBD00983B82 /* AppDelegate.swift in Sources */,
+				A75BF2222A119576000C6E4C /* MeusSaldosView.swift in Sources */,
 				CB7C52312A110CD600983B82 /* HeaderResumoView.swift in Sources */,
 				CB7C52302A110CD600983B82 /* MenuCollecttion.swift in Sources */,
 				CB7C52162A110CBD00983B82 /* SceneDelegate.swift in Sources */,

@@ -24,7 +24,8 @@ final class ResumeView: UIView {
         let view = SimpleScrollView(spacing: 0,
                                     margins: .init(top: 0, leading: 0, bottom: 8, trailing: 0))
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
+        view.backgroundColor = .red
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -32,11 +33,21 @@ final class ResumeView: UIView {
         let myView = UIImageView()
         myView.translatesAutoresizingMaskIntoConstraints = false
         myView.image = UIImage(named: "resumeBackground")
+        myView.isUserInteractionEnabled = true
         return myView
     }()
     
     private lazy var cardView: MyBalanceView = {
         let view = MyBalanceView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
+    private lazy var myBalanceView: MeusSaldosView = {
+        let view = MeusSaldosView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -44,9 +55,7 @@ final class ResumeView: UIView {
         super.init(frame: frame)
  
         setupView()
-        setupHeader()
-        setupCard()
-        configurarScrollView()
+        setupConstraints()
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -57,33 +66,38 @@ final class ResumeView: UIView {
         addSubview(headerView)
         addSubview(scrollView)
         
-        scrollView.addSubview(containerImageView)
+        addSubview(containerImageView)
+//        containerImageView.addSubview(containerImageStackView)
+        
         containerImageView.addSubview(cardView)
+        containerImageView.addSubview(myBalanceView)
     }
     
-    private func setupHeader() {
+    private func setupConstraints() {
+        
         headerView.constraint {[
             $0.topAnchor.constraint(equalTo: topAnchor),
             $0.leadingAnchor.constraint(equalTo: leadingAnchor),
             $0.trailingAnchor.constraint(equalTo: trailingAnchor),
         ]}
-    }
+        
+        containerImageView.constraint {[
+            $0.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            $0.leadingAnchor.constraint(equalTo: leadingAnchor),
+            $0.trailingAnchor.constraint(equalTo: trailingAnchor),
+            $0.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ]}
     
-    
-    private func setupCard() {
         cardView.constraint {[
             $0.topAnchor.constraint(equalTo: containerImageView.topAnchor, constant: 24),
             $0.leadingAnchor.constraint(equalTo: containerImageView.leadingAnchor, constant: 16),
             $0.trailingAnchor.constraint(equalTo: containerImageView.trailingAnchor, constant: -16),
         ]}
-    }
-    
-    private func configurarScrollView() {
-        scrollView.constraint {[
-            $0.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            $0.leadingAnchor.constraint(equalTo: leadingAnchor),
-            $0.trailingAnchor.constraint(equalTo: trailingAnchor),
-            $0.bottomAnchor.constraint(equalTo: bottomAnchor)
+
+        myBalanceView.constraint {[
+            $0.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 24),
+            $0.leadingAnchor.constraint(equalTo: containerImageView.leadingAnchor, constant: 16),
+            $0.trailingAnchor.constraint(equalTo: containerImageView.trailingAnchor, constant: -16),
         ]}
     }
 }
