@@ -15,6 +15,8 @@ final class MyBalanceList: UIView {
     
     weak var delegate: MyBalanceListDelegate?
     
+    lazy var grayView = GrayView()
+    
     private lazy var iconView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -34,6 +36,7 @@ final class MyBalanceList: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        label.sizeToFit()
         return label
     }()
     
@@ -78,9 +81,29 @@ final class MyBalanceList: UIView {
         ])
     }
     
+    override func layoutSubviews() {
+        grayView = GrayView(frame: balanceLabel.bounds)
+        grayView.alpha = 0
+        balanceLabel.addSubview(grayView)
+    }
+    
     public func setupModel(title: String, balance: String, iconBalance: String) {
         titleLabel.text = title
         balanceLabel.text = balance
         iconView.image = UIImage(named: iconBalance)
+    }
+    
+    func showBalance(isHidden: Bool) {
+        if isHidden {
+            grayView.alpha = 0
+            balanceLabel.layoutSubviews()
+            balanceLabel.layoutIfNeeded()
+            balanceLabel.sizeToFit()
+        } else {
+            grayView.alpha = 1
+            balanceLabel.layoutSubviews()
+            balanceLabel.layoutIfNeeded()
+            balanceLabel.sizeToFit()
+        }
     }
 }

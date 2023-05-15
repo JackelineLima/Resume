@@ -49,6 +49,7 @@ final class ResumeView: UIView {
         let view = MyBalanceView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
+        view.delegate = self
         return view
     }()
     
@@ -56,6 +57,7 @@ final class ResumeView: UIView {
         let view = MeusSaldosView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
+//        view.delegate = self
         return view
     }()
     
@@ -63,7 +65,8 @@ final class ResumeView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 10
-        
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+
         let cellWidth: CGFloat = UIScreen.main.bounds.width / 4.3
         let cellHeight: CGFloat = 98
         layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
@@ -78,14 +81,25 @@ final class ResumeView: UIView {
         return collectionView
     }()
     
-    private lazy var testeView: UIView = {
-        let view = UIView()
+    private lazy var alertFGCView: AlertFGCView = {
+        let view = AlertFGCView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.isUserInteractionEnabled = true
-        view.backgroundColor = .red
         return view
     }()
     
+    private lazy var creditView: CreditResumeBannerView = {
+        let view = CreditResumeBannerView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var lifeMoreBannerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .green
+        return view
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
  
@@ -107,7 +121,9 @@ final class ResumeView: UIView {
         containerImageView.addSubview(cardView)
         containerImageView.addSubview(myBalanceView)
         containerImageView.addSubview(menuCollection)
-        containerImageView.addSubview(testeView)
+        containerImageView.addSubview(alertFGCView)
+        containerImageView.addSubview(creditView)
+        containerImageView.addSubview(lifeMoreBannerView)
     }
     
     private func setupConstraints() {
@@ -139,17 +155,31 @@ final class ResumeView: UIView {
         
         menuCollection.constraint {[
             $0.topAnchor.constraint(equalTo: myBalanceView.bottomAnchor, constant: 8),
-            $0.leadingAnchor.constraint(equalTo: containerImageView.leadingAnchor, constant: 16),
+            $0.leadingAnchor.constraint(equalTo: containerImageView.leadingAnchor),
             $0.trailingAnchor.constraint(equalTo: containerImageView.trailingAnchor),
-            $0.heightAnchor.constraint(equalToConstant: 88),
+            $0.heightAnchor.constraint(equalToConstant: 98),
         ]}
         
-        testeView.constraint {[
+        alertFGCView.constraint {[
             $0.topAnchor.constraint(equalTo: menuCollection.bottomAnchor, constant: 8),
             $0.leadingAnchor.constraint(equalTo: containerImageView.leadingAnchor, constant: 16),
-            $0.trailingAnchor.constraint(equalTo: containerImageView.trailingAnchor),
-            $0.heightAnchor.constraint(equalToConstant: 88),
+            $0.trailingAnchor.constraint(equalTo: containerImageView.trailingAnchor, constant: -16),
         ]}
+        
+        creditView.constraint {[
+            $0.topAnchor.constraint(equalTo: alertFGCView.bottomAnchor),
+            $0.leadingAnchor.constraint(equalTo: containerImageView.leadingAnchor, constant: 16),
+            $0.trailingAnchor.constraint(equalTo: containerImageView.trailingAnchor, constant: -16),
+        ]}
+        
+        lifeMoreBannerView.constraint {[
+            $0.topAnchor.constraint(equalTo: creditView.bottomAnchor),
+            $0.leadingAnchor.constraint(equalTo: containerImageView.leadingAnchor, constant: 16),
+            $0.trailingAnchor.constraint(equalTo: containerImageView.trailingAnchor, constant: -16),
+            $0.bottomAnchor.constraint(equalTo: containerImageView.bottomAnchor, constant: -16),
+            $0.heightAnchor.constraint(equalToConstant: 200)
+        ]}
+        
     }
 }
 
@@ -167,5 +197,11 @@ extension ResumeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
             title: dataSourceArray[indexPath.item].title)
         
         return cell
+    }
+}
+
+extension ResumeView: MyBalanceViewDelegate {
+    func showBalance(isHidden: Bool) {
+        myBalanceView.showBalance(isHidden: isHidden)
     }
 }

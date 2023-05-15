@@ -6,7 +6,13 @@
 //
 import UIKit
 
+protocol MyBalanceViewDelegate: AnyObject {
+    func showBalance(isHidden: Bool)
+}
+
 final class MyBalanceView: UIView {
+    
+    weak var delegate: MyBalanceViewDelegate?
     
     private var isHiddenBalance = true
     
@@ -136,6 +142,7 @@ final class MyBalanceView: UIView {
         }
         eyeButton.setImage(imageBalanceButton, for: .normal)
         showBalance(isHidden: isHiddenBalance, views: [balanceLabel, withdrawValueLabel])
+        delegate?.showBalance(isHidden: isHiddenBalance)
     }
     
     public func showBalance(isHidden: Bool, views: [UIView]) {

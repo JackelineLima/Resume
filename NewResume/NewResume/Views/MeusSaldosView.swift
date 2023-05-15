@@ -13,7 +13,13 @@ struct MyBalanceModel {
     let value: String
 }
 
+protocol MeusSaldosViewDelegate: AnyObject {
+    func showBalance() -> Bool
+}
+
 final class MeusSaldosView: UIControl {
+    
+    weak var delegate: MeusSaldosViewDelegate?
     
     private var iconRotationAngle: CGFloat = 0
     private var showListBalance = true
@@ -73,6 +79,8 @@ final class MeusSaldosView: UIControl {
         return view
     }()
     
+    var myBalanceview: MyBalanceList?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
@@ -80,17 +88,18 @@ final class MeusSaldosView: UIControl {
         
         print(model.count)
         model.enumerated().forEach { index, item in
-            let view = MyBalanceList()
-            view.delegate = self
-            view.setupModel(
+            myBalanceview = MyBalanceList()
+            guard let myBalanceview else { return }
+            myBalanceview.delegate = self
+            myBalanceview.setupModel(
                 title: item.title,
                 balance: item.value,
                 iconBalance: item.icon)
             
-            containerListBalanceView.addArrangedSubview(view)
+            containerListBalanceView.addArrangedSubview(myBalanceview)
             
             if model.count == index + 1 {
-                view.lineView.isHidden = true
+                myBalanceview.lineView.isHidden = true
             }
         }
         stackView.addArrangedSubview(containerListBalanceView)
@@ -146,6 +155,14 @@ final class MeusSaldosView: UIControl {
             self.expandButton.transform = CGAffineTransform(rotationAngle: self.iconRotationAngle)
         }
         containerListBalanceView.isHidden = showListBalance
+    }
+    
+    func showBalance(isHidden: Bool) {
+        containerListBalanceView.subviews.forEach { view in
+            if let myBalanceList = view as? MyBalanceList {
+                myBalanceList.showBalance(isHidden: isHidden)
+            }
+        }
     }
 }
 

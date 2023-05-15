@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MenuResumeCell: UICollectionViewCell {
+final class MenuResumeCell: UICollectionViewCell {
     
     static let identifier = "MenuResumeCell"
     
