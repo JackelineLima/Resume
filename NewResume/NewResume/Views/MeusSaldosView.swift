@@ -7,7 +7,38 @@
 
 import UIKit
 
+struct MyBalanceModel {
+    let icon: String
+    let title: String
+    let value: String
+}
+
 final class MeusSaldosView: UIControl {
+    
+    private var iconRotationAngle: CGFloat = 0
+    private var showListBalance = true
+    
+    let model: [MyBalanceModel] = [MyBalanceModel(icon: "icon_finance_balance", title: "Conta corrente", value: "R$ 100,00"),
+                                   MyBalanceModel(icon: "chart_down", title: "Aplicações disponíveis para saque", value: "R$ 3.900,00"),
+                                   MyBalanceModel(icon: "icon_finance_scheduled_debit", title: "Débito programado", value: "-R$ 50,00"),
+                                   MyBalanceModel(icon: "icon_finance_savings", title: "Conta poupança", value: "R$ 500,00"),
+                                   MyBalanceModel(icon: "icon_cart_resume", title: "Limite disponível do Banese Card", value: "R$ 5.052,20"),
+                                   MyBalanceModel(icon: "chart_down", title: "Aplicações", value: "R$ 4.900,00")]
+    
+    private lazy var stackView: UIStackView = {
+        let view = UIStackView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .vertical
+        view.isUserInteractionEnabled = false
+        return view
+    }()
+    
+    private lazy var containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
+        return view
+    }()
     
     private lazy var iconView: UIImageView = {
         let view = UIImageView()
@@ -34,10 +65,36 @@ final class MeusSaldosView: UIControl {
         return view
     }()
     
+    
+    private lazy var containerListBalanceView: UIStackView = {
+        let view = UIStackView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .vertical
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
         setupViews()
+        
+        print(model.count)
+        model.enumerated().forEach { index, item in
+            let view = MyBalanceList()
+            view.delegate = self
+            view.setupModel(
+                title: item.title,
+                balance: item.value,
+                iconBalance: item.icon)
+            
+            containerListBalanceView.addArrangedSubview(view)
+            
+            if model.count == index + 1 {
+                view.lineView.isHidden = true
+            }
+        }
+        stackView.addArrangedSubview(containerListBalanceView)
+        containerListBalanceView.isHidden = true
     }
     
     required init?(coder: NSCoder) {
@@ -45,21 +102,29 @@ final class MeusSaldosView: UIControl {
     }
     
     private func setupViews() {
-        addSubview(iconView)
-        addSubview(titleLabel)
-        addSubview(expandButton)
+        addSubview(stackView)
+        stackView.addArrangedSubview(containerView)
+        containerView.addSubview(iconView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(expandButton)
+        
+        stackView.constraint {[
+            $0.topAnchor.constraint(equalTo: topAnchor),
+            $0.leadingAnchor.constraint(equalTo: leadingAnchor),
+            $0.trailingAnchor.constraint(equalTo: trailingAnchor),
+            $0.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ]}
         
         NSLayoutConstraint.activate([
-        
-            iconView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            iconView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            iconView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            iconView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            iconView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
             
             titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 12),
             titleLabel.centerYAnchor.constraint(equalTo: iconView.centerYAnchor),
             
             expandButton.centerYAnchor.constraint(equalTo: iconView.centerYAnchor),
-            expandButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            expandButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
         ])
     }
     
@@ -71,14 +136,21 @@ final class MeusSaldosView: UIControl {
         
         addTarget(self, action: #selector(expandButtonTapped), for: .touchUpInside)
     }
-    
-    var iconRotationAngle: CGFloat = 0
+
     
     @objc
     func expandButtonTapped() {
+        showListBalance.toggle()
         iconRotationAngle += CGFloat.pi
         UIView.animate(withDuration: 0.2) {
             self.expandButton.transform = CGAffineTransform(rotationAngle: self.iconRotationAngle)
         }
+        containerListBalanceView.isHidden = showListBalance
+    }
+}
+
+extension MeusSaldosView: MyBalanceListDelegate {
+    func showBalance() {
+        
     }
 }

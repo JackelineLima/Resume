@@ -10,7 +10,6 @@ final class MyBalanceView: UIView {
     
     private var isHiddenBalance = true
     
-    
     private lazy var uiStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +83,6 @@ final class MyBalanceView: UIView {
     private func setupBackgroundHiddenBalance(views: [UIView]) {
         views.forEach { view in
             grayView = GrayView(frame: view.bounds)
-            grayView.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1.0)
             grayView.alpha = 0
             view.addSubview(grayView)
         }
@@ -137,7 +135,6 @@ final class MyBalanceView: UIView {
             imageBalanceButton = UIImage(named: "icon_security_eye_close")
         }
         eyeButton.setImage(imageBalanceButton, for: .normal)
-        print(isHiddenBalance)
         showBalance(isHidden: isHiddenBalance, views: [balanceLabel, withdrawValueLabel])
     }
     
@@ -161,30 +158,5 @@ final class MyBalanceView: UIView {
                 }
             }
         }
-    }
-    
-    private func setupBackgroundHidden(views: [UIView]) {
-        views.forEach { view in
-            grayView = GrayView(frame: view.bounds)
-            grayView.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1.0)
-            grayView.alpha = 0
-        }
-    }
-}
-
-final class GrayView: UIView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupLayout()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    
-    private func setupLayout() {
-        backgroundColor = .red
     }
 }

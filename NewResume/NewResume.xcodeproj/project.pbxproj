@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A75BF2222A119576000C6E4C /* MeusSaldosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75BF2212A119576000C6E4C /* MeusSaldosView.swift */; };
+		A75BF2242A11A906000C6E4C /* GrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75BF2232A11A906000C6E4C /* GrayView.swift */; };
+		A75BF2262A11B8E8000C6E4C /* MyBalanceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75BF2252A11B8E8000C6E4C /* MyBalanceList.swift */; };
 		CB7C52142A110CBD00983B82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C52132A110CBD00983B82 /* AppDelegate.swift */; };
 		CB7C52162A110CBD00983B82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C52152A110CBD00983B82 /* SceneDelegate.swift */; };
 		CB7C52182A110CBD00983B82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C52172A110CBD00983B82 /* ViewController.swift */; };
@@ -16,7 +18,7 @@
 		CB7C52202A110CBE00983B82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB7C521E2A110CBE00983B82 /* LaunchScreen.storyboard */; };
 		CB7C522E2A110CD600983B82 /* AgencyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C52282A110CD500983B82 /* AgencyAccountView.swift */; };
 		CB7C522F2A110CD600983B82 /* MyBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C52292A110CD500983B82 /* MyBalanceView.swift */; };
-		CB7C52302A110CD600983B82 /* MenuCollecttion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C522A2A110CD500983B82 /* MenuCollecttion.swift */; };
+		CB7C52302A110CD600983B82 /* MenuResumeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C522A2A110CD500983B82 /* MenuResumeCell.swift */; };
 		CB7C52312A110CD600983B82 /* HeaderResumoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C522B2A110CD500983B82 /* HeaderResumoView.swift */; };
 		CB7C52322A110CD600983B82 /* ResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C522C2A110CD500983B82 /* ResumeView.swift */; };
 		CB7C52332A110CD600983B82 /* SimpleScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7C522D2A110CD500983B82 /* SimpleScrollView.swift */; };
@@ -24,6 +26,8 @@
 
 /* Begin PBXFileReference section */
 		A75BF2212A119576000C6E4C /* MeusSaldosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeusSaldosView.swift; sourceTree = "<group>"; };
+		A75BF2232A11A906000C6E4C /* GrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayView.swift; sourceTree = "<group>"; };
+		A75BF2252A11B8E8000C6E4C /* MyBalanceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBalanceList.swift; sourceTree = "<group>"; };
 		CB7C52102A110CBD00983B82 /* NewResume.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewResume.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB7C52132A110CBD00983B82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB7C52152A110CBD00983B82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -34,7 +38,7 @@
 		CB7C52212A110CBE00983B82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB7C52282A110CD500983B82 /* AgencyAccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgencyAccountView.swift; sourceTree = "<group>"; };
 		CB7C52292A110CD500983B82 /* MyBalanceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBalanceView.swift; sourceTree = "<group>"; };
-		CB7C522A2A110CD500983B82 /* MenuCollecttion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCollecttion.swift; sourceTree = "<group>"; };
+		CB7C522A2A110CD500983B82 /* MenuResumeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuResumeCell.swift; sourceTree = "<group>"; };
 		CB7C522B2A110CD500983B82 /* HeaderResumoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderResumoView.swift; sourceTree = "<group>"; };
 		CB7C522C2A110CD500983B82 /* ResumeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResumeView.swift; sourceTree = "<group>"; };
 		CB7C522D2A110CD500983B82 /* SimpleScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleScrollView.swift; sourceTree = "<group>"; };
@@ -87,11 +91,13 @@
 			children = (
 				CB7C52282A110CD500983B82 /* AgencyAccountView.swift */,
 				CB7C52292A110CD500983B82 /* MyBalanceView.swift */,
-				CB7C522A2A110CD500983B82 /* MenuCollecttion.swift */,
+				CB7C522A2A110CD500983B82 /* MenuResumeCell.swift */,
 				CB7C522B2A110CD500983B82 /* HeaderResumoView.swift */,
 				CB7C522C2A110CD500983B82 /* ResumeView.swift */,
 				CB7C522D2A110CD500983B82 /* SimpleScrollView.swift */,
 				A75BF2212A119576000C6E4C /* MeusSaldosView.swift */,
+				A75BF2232A11A906000C6E4C /* GrayView.swift */,
+				A75BF2252A11B8E8000C6E4C /* MyBalanceList.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,9 +177,11 @@
 				CB7C522E2A110CD600983B82 /* AgencyAccountView.swift in Sources */,
 				CB7C52332A110CD600983B82 /* SimpleScrollView.swift in Sources */,
 				CB7C52142A110CBD00983B82 /* AppDelegate.swift in Sources */,
+				A75BF2242A11A906000C6E4C /* GrayView.swift in Sources */,
 				A75BF2222A119576000C6E4C /* MeusSaldosView.swift in Sources */,
+				A75BF2262A11B8E8000C6E4C /* MyBalanceList.swift in Sources */,
 				CB7C52312A110CD600983B82 /* HeaderResumoView.swift in Sources */,
-				CB7C52302A110CD600983B82 /* MenuCollecttion.swift in Sources */,
+				CB7C52302A110CD600983B82 /* MenuResumeCell.swift in Sources */,
 				CB7C52162A110CBD00983B82 /* SceneDelegate.swift in Sources */,
 				CB7C522F2A110CD600983B82 /* MyBalanceView.swift in Sources */,
 				CB7C52322A110CD600983B82 /* ResumeView.swift in Sources */,
